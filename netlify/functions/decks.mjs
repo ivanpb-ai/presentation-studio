@@ -31,7 +31,7 @@ const USER_RE = /^[a-z0-9_-]{1,32}$/i;
 
 // "admin"/"default" are reserved: never read from EDITOR_USERS.
 // EDITOR_PASSWORD is the admin credential; "default" is its legacy alias.
-function parseUsers() {
+export function parseUsers() {
   const map = new Map();
   const multiSrc = process.env.EDITOR_USERS;
   if (multiSrc) {
@@ -53,7 +53,7 @@ const tokenFor = (user, password) =>
   crypto.createHash("sha256").update(`${PEPPER}:${user}:${password}`).digest("hex");
 
 // → cookie-gate username, or null.
-function cookieAuthedUser(req) {
+export function cookieAuthedUser(req) {
   const map = parseUsers();
   if (!map.size) return null;
   const part = (req.headers.get("cookie") || "").split(/; */).find((p) => p.trim().startsWith(COOKIE + "="));
@@ -71,7 +71,7 @@ function cookieAuthedUser(req) {
 // → { id, email } for a valid Netlify Identity bearer token, or null. The
 // token is validated by asking the site's own GoTrue instance who it belongs
 // to — no shared JWT secret needed, and revoked/expired tokens fail naturally.
-async function identityAuthedUser(req) {
+export async function identityAuthedUser(req) {
   const m = /^Bearer\s+(\S+)$/i.exec(req.headers.get("authorization") || "");
   if (!m) return null;
   const base = process.env.URL || new URL(req.url).origin;

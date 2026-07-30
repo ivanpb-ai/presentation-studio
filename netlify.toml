@@ -19,6 +19,9 @@
 #   PERPLEXITY_API_KEY  optional — enables AI-enriched "interactive pages"
 #                       export (netlify/functions/perplexity.mjs).
 #   PERPLEXITY_MODEL    optional — defaults to "sonar".
+#   REPLICATE_API_TOKEN optional — enables AI image generation (flux-1.1-pro)
+#                       in the Insert → Image dialog; TEXT_TO_IMAGE works as an
+#                       alias. Server-side only (functions/generate-image.mjs).
 
 [build]
   command = "npm run build"

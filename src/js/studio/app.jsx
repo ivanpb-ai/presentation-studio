@@ -280,7 +280,7 @@ const HELP_SECTIONS = [
   },
   {
     title: "▤ Decks",
-    body: <>Your presentation library — every deck autosaves as you edit. Create, duplicate, delete and switch decks, or <b>Import</b> a Studio <code>.json</code> file (or <code>.html</code> pages exported from this editor) as a new deck. The admin account can publish the deck it is editing as the <b>welcome deck</b> every new user starts with (only admin can change it).</>,
+    body: <>Your presentation library — every deck autosaves as you edit. Create, duplicate, delete and switch decks, or <b>Import</b> a PowerPoint <code>.pptx</code> (each slide is converted into editable Studio blocks — text, images, shapes — with layout and colours preserved), a Studio <code>.json</code> file, or <code>.html</code> pages exported from this editor as a new deck. The admin account can publish the deck it is editing as the <b>welcome deck</b> every new user starts with (only admin can change it).</>,
   },
   {
     title: "✓ Review",
@@ -622,10 +622,27 @@ export default function StudioApp() {
     switchTo(imported);
   };
 
+  // PowerPoint upload → editable deck. The PPTX engine lives in the Studio
+  // (js/studio/import-pptx.js, loaded on demand).
+  const importPptxFile = async (file) => {
+    try {
+      const { pptxFileToDeck } = await import("./import-pptx");
+      const { title, slides } = await pptxFileToDeck(file);
+      persistCurrent();
+      const imported = createPresentation({ title, slides });
+      saveDeckToLib(imported);
+      switchTo(imported);
+    } catch (err) {
+      window.alert("PowerPoint import failed: " + (err?.message || err));
+    }
+  };
+
   const onFile = (e) => {
     const files = [...(e.target.files || [])];
     e.target.value = "";
     if (!files.length) return;
+    const pptxFile = files.find((f) => /\.pptx$/i.test(f.name));
+    if (pptxFile) { importPptxFile(pptxFile); return; }
     const htmlFiles = files.filter((f) => /\.html?$/i.test(f.name));
     if (htmlFiles.length) { importConverterPages(htmlFiles); return; }
     const reader = new FileReader();
@@ -636,7 +653,7 @@ export default function StudioApp() {
         persistCurrent();
         const imported = { ...parsed, id: uid("deck") }; // distinct library entry
         saveDeckToLib(imported); switchTo(imported);
-      } catch { window.alert("That file isn't a valid Studio presentation (.json) or generated page (.html)."); }
+      } catch { window.alert("That file isn't a valid Studio presentation (.json), PowerPoint (.pptx), or generated page (.html)."); }
     };
     reader.readAsText(files[0]);
   };
@@ -789,7 +806,7 @@ export default function StudioApp() {
         <button className="st-zoom-val" title="Reset zoom to fit" onClick={() => setZoom(1)}>{Math.round(zoom * 100)}%</button>
         <button title="Zoom in" onClick={() => setZoom((z) => clampZoom(z * 1.25))}>＋</button>
       </div>
-      <input ref={fileRef} type="file" accept="application/json,.json,.html,.htm" multiple style={{ display: "none" }} onChange={onFile} />
+      <input ref={fileRef} type="file" accept="application/json,.json,.pptx,.html,.htm" multiple style={{ display: "none" }} onChange={onFile} />
       {reviewing && <ReviewDialog deck={deck} onClose={() => setReviewing(false)}
         onGoto={(i, elId) => { setReviewing(false); setCurrent(i); setSelectedId(elId); setEditingId(null); }} />}
       {genPages && <GeneratePagesDialog deck={deck} onClose={() => setGenPages(false)} />}

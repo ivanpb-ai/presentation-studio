@@ -789,7 +789,7 @@ export function Toolbar({ title, onTitle, onCheckpoint, onInsert, onUndo, onRedo
             <div className="st-decks-foot">
               <button className="st-btn sm" onClick={() => { onNewDeck(); close(); }}>+ New</button>
               <button className="st-btn sm" onClick={() => { onDuplicateDeck(); close(); }}>Duplicate</button>
-              <button className="st-btn sm" title="Import a Studio .json — or .html pages exported from this editor" onClick={() => { onImport(); close(); }}>Import…</button>
+              <button className="st-btn sm" title="Import a PowerPoint .pptx (converted to editable slides), a Studio .json, or .html pages exported from this editor" onClick={() => { onImport(); close(); }}>Import…</button>
             </div>
             {onPublishTemplate && (
               <div className="st-decks-foot">

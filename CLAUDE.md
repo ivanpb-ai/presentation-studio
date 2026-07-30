@@ -31,7 +31,9 @@ Generic-only (stays in this repo):
 Telia-only (stays in slicing.it):
 - Telia palette values and Telia Sans fonts
 - NorthStar site-copy overlay (`copy.js` editor) and its Decks-menu entry
-- Slide Converter hand-over (`takeTransferredSlides`) and converter wording
+- Converter-era wording in export menus; the slicing.it slide-converter
+  page and its `takeTransferredSlides` hand-over were removed 2026-07 —
+  .pptx import now lives in the Studio itself (synced, below)
 - NorthStar/Perplexity API endpoints on `northstar-program.com`
   (its `generate-pages.js` has three modes: none/northstar/generic)
 - Auth specifics: `ns_editor_auth`/`ns_editor_user` cookie names, the
@@ -52,6 +54,11 @@ never by regular users, with "admin" ignored in EDITOR_USERS; the
 admin-published welcome-deck template — site-global "__template__" blob,
 readable by any signed-in user to seed a new library, writable by admin
 only via Decks → "★ Set as welcome deck", built-in starter as fallback;
+the .pptx importer — `src/js/studio/import-pptx.js` (a browser PPTX
+engine mapped onto Studio elements: titles→headings, text boxes→text,
+pictures→images as data URIs, boxes/connectors→shapes, EMU→stage scaling
+with letterboxing, slide background kept), reachable via Decks →
+Import… accepting `.pptx`;
 the Insert → Image dialog — upload from device, Openverse search through
 the `?ov_q=` server passthrough (optional `OPENVERSE_CLIENT_ID`/`SECRET`
 credentials; direct browser call as fallback), and Replicate flux-1.1-pro

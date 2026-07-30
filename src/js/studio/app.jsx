@@ -280,7 +280,7 @@ const HELP_SECTIONS = [
   },
   {
     title: "▤ Decks",
-    body: <>Your presentation library — every deck autosaves as you edit. Create, duplicate, delete and switch decks, or <b>Import</b> a PowerPoint <code>.pptx</code> (each slide is converted into editable Studio blocks — text, images, shapes — with layout and colours preserved), a Studio <code>.json</code> file, or <code>.html</code> pages exported from this editor as a new deck. The admin account can publish the deck it is editing as the <b>welcome deck</b> every new user starts with (only admin can change it).</>,
+    body: <>Your presentation library — every deck autosaves as you edit. Create, duplicate, delete and switch decks, or <b>Import</b> a PowerPoint <code>.pptx</code> (each slide is converted into editable Studio blocks — text, images, shapes, even charts with their data — with layout and colours preserved), a Studio <code>.json</code> file, or <code>.html</code> pages exported from this editor as a new deck. The admin account can publish the deck it is editing as the <b>welcome deck</b> every new user starts with (only admin can change it).</>,
   },
   {
     title: "✓ Review",

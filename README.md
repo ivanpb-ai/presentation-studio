@@ -94,6 +94,7 @@ adopted by the first user who signs in there.
 | `PERPLEXITY_API_KEY` | Enables the AI enrichment in the "Interactive pages" export and the live-explanation toggle on generated pages. Get a key at <https://www.perplexity.ai/settings/api>. |
 | `PERPLEXITY_MODEL` | Perplexity model for the proxy (default `sonar`). |
 | `REPLICATE_API_TOKEN` | Enables AI image generation (Insert → Image → Generate, Replicate's `flux-1.1-pro`). Get a token at <https://replicate.com/account/api-tokens>. `TEXT_TO_IMAGE` is accepted as an alias. The token is only read server-side by `netlify/functions/generate-image.mjs` — never put it in client code. |
+| `OPENVERSE_CLIENT_ID`, `OPENVERSE_CLIENT_SECRET` | Free Openverse API credentials for the Insert → Image photo search (register at <https://api.openverse.org/v1/#tag/auth>). Optional — without them Openverse's anonymous rate limits apply and some deployments are rejected outright. |
 
 > **Note:** the Perplexity proxy (`/api/perplexity`) is CORS-open by design so
 > downloaded pages keep working from anywhere — anyone who can reach your site

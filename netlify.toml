@@ -22,6 +22,10 @@
 #   REPLICATE_API_TOKEN optional — enables AI image generation (flux-1.1-pro)
 #                       in the Insert → Image dialog; TEXT_TO_IMAGE works as an
 #                       alias. Server-side only (functions/generate-image.mjs).
+#   OPENVERSE_CLIENT_ID / OPENVERSE_CLIENT_SECRET
+#                       optional — free Openverse API credentials for the
+#                       image search (https://api.openverse.org/v1/#tag/auth);
+#                       without them anonymous rate limits apply.
 
 [build]
   command = "npm run build"
